@@ -258,6 +258,12 @@ public class ReliableSpoolingFileEventReader implements ReliableEventReader {
             candidateFiles.add(candidate.toFile());
           }
 
+          /* Start Edit by bright at 2017/08/30 Performance problems caused by too many small files!*/
+          if (candidateFiles.size() == 500) {
+            return FileVisitResult.TERMINATE;
+          }
+          /* End Edit by bright at 2017/08/30 Performance problems caused by too many small files!*/
+
           return FileVisitResult.CONTINUE;
         }
       });
